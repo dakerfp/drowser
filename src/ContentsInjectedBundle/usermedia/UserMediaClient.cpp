@@ -33,16 +33,6 @@
 
 #include <cstdio>
 
-class BuzzerStreamSource : public Nix::MediaStreamSource
-{
-public:
-    BuzzerStreamSource()
-        : Nix::MediaStreamSource()
-    {
-
-    }
-};
-
 UserMediaClient::UserMediaClient()
 {
     printf("[%s] %p\n", __PRETTY_FUNCTION__, this);
@@ -62,26 +52,18 @@ void UserMediaClient::pageDestroyed()
 void UserMediaClient::requestUserMedia(Nix::UserMediaRequest& request, const Nix::Vector<Nix::MediaStreamSource>& audioSources, const Nix::Vector<Nix::MediaStreamSource>& videoSources)
 {
     printf("[%s] %p -- audio: %d, video: %d\n", __PRETTY_FUNCTION__, this, request.audio(), request.video());
-    bool succeed = true;
 
     Nix::MediaStream ms;
     Nix::Vector<Nix::MediaStreamTrack> audioTracks;
     Nix::Vector<Nix::MediaStreamTrack> videoTracks;
 
-    if (request.audio()) {
-        // Nix::MediaConstraints audioConstraints = request.audioConstraints(); // TODO: check constraints
-        // ms.initialize("MockAudioDevice#1", Nix::SourceInfo::SourceKindAudio, "Mock audio device", WebSourceInfo::VideoFacingModeNone);
-    }
+    if (request.audio())
+        return;
 
     if (request.video())
-        succeed = false;
+        return;
 
     ms.initialize(Nix::String("MockAudioDevice#1"), audioTracks, videoTracks);
-
-    if (succeed)
-        request.requestSucceeded(ms);
-    else
-        request.requestFailed();
 }
 
 void UserMediaClient::cancelUserMediaRequest(const Nix::UserMediaRequest& request)
