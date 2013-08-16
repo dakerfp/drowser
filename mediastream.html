@@ -1,0 +1,47 @@
+<html>
+<head></head>
+<body>
+<h1>Mediastream</h1>
+<div id="main"></div>
+<script>
+function log(msg) {
+	var main = document.getElementById("main");
+	main.innerHTML += "<p>" + msg + "</p>";
+}
+
+log(">");
+
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
+navigator.getUserMedia(
+	{"audio": true},
+
+    function (localMediaStream) {
+    	
+	   	log(localMediaStream);
+	   	log(localMediaStream.id);
+	   	log(localMediaStream.label);
+
+	   	log("===========================");
+
+	   	var audioContext = new window.AudioContext();
+	   	log(audioContext);
+
+	   	// var mediaStreamSource = audioContext.createMediaStreamSource(localMediaStream);
+	   	// log(mediaStreamSource);
+
+	   	var audioTracks = localMediaStream.getAudioTracks();
+		
+		log("> " + audioTracks.length);
+       	var src = window.URL.createObjectURL(localMediaStream);
+       	log(src);
+   	},
+
+   	function (error) {
+   		log("error");
+   	}
+);
+
+</script>
+</body>
+</html>
