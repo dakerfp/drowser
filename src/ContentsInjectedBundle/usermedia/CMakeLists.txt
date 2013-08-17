@@ -5,6 +5,7 @@ include_directories(
 set(usermedia_SOURCES
   PlatformClientUserMedia.cpp
   UserMediaClient.cpp
+  MediaStreamCenter.cpp
 )
 
 set(usermedia_LIBRARIES

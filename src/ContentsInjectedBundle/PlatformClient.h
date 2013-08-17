@@ -20,6 +20,8 @@ public:
 
     virtual Nix::UserMediaClient* createUserMediaClient();
 
+    virtual Nix::MediaStreamCenter* createMediaStreamCenter();
+
     // Resources -----------------------------------------------------------
     // Returns a blob of data corresponding to the named resource.
     virtual Nix::Data loadResource(const char* name);
